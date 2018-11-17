@@ -1,0 +1,18 @@
+{
+  "name": "LoftSchool",
+  "version": "1.0.0",
+  "description": "LoftSchool home work 1",
+  "main": "index.js",
+  "scripts": {
+    "hw-01": "node hw-01/scripts/librarian.js -from hw-01/mess -to hw-01/result --debug"
+  },
+  "author": "Vladislav Golovin <gvladislavn@yandex.ru>",
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
+  }
+}

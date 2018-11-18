@@ -34,22 +34,39 @@ function deleteSrc (infoObj, callback = () => {}) {
     return;
   }
 
-  const pAllDelFiles = new PromiseAllCounter(() => { deleteDirs(infoObj.dirs, callback); }).setCallbacksCount(infoObj.files.length);
-  for (let j = infoObj.files.length - 1; j >= 0; j--) {
-    fs.unlink(infoObj.files[j], () => {
-      pAllDelFiles.complete(j);
-    });
+  deleteFiles(infoObj.files, () => {
+    deleteDirs(infoObj.dirs, callback);
+  });
+  // TODO: remove boilerplate
+  function deleteFiles (files, callb = () => {}) {
+    const pAllDelFiles = new PromiseAllCounter(callb).setCallbacksCount(files.length);
+
+    let curIndex = files.length - 1;
+    dFile(curIndex, files);
+    function dFile (curIndex, filesArr) {
+      if (curIndex >= 0) {
+        fs.unlink(filesArr[curIndex], () => {
+          pAllDelFiles.complete(curIndex);
+          curIndex--;
+          dFile(curIndex, filesArr);
+        });
+      }
+    }
   }
 
   function deleteDirs (dirs, callb = () => {}) {
     const pAllDelDirs = new PromiseAllCounter(callb).setCallbacksCount(dirs.length);
-    console.log(dirs);
-    for (let l = dirs.length - 1; l >= 0; l--) {
-      fs.rmdir(dirs[l], (err) => {
-        if (err) console.log(err);
-        else console.log(`DELETED: ${dirs[l]}`);
-        pAllDelDirs.complete(l);
-      });
+
+    let curIndex = dirs.length - 1;
+    dDir(curIndex, dirs);
+    function dDir (curIndex, dirsArr) {
+      if (curIndex >= 0) {
+        fs.rmdir(dirsArr[curIndex], () => {
+          pAllDelDirs.complete(curIndex);
+          curIndex--;
+          dDir(curIndex, dirsArr);
+        });
+      }
     }
   }
 }

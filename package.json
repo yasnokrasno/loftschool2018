@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "hw-01-init": "node hw-01/scripts/generate-mess.js -dir hw-01/mess -dep 3 -fill 10",
-    "hw-01": "node hw-01/scripts/librarian.js -from hw-01/mess -to hw-01/result --debug"
+    "hw-01": "node hw-01/scripts/librarian.js -from hw-01/mess -to hw-01/result"
   },
   "author": "Vladislav Golovin <gvladislavn@yandex.ru>",
   "devDependencies": {

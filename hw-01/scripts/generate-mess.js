@@ -1,14 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const Args = require('./helpers/args');
+const parseArgs = require('./helpers/args');
 const NameGen = require('./helpers/namegen');
+const PromiseAllCounter = require('./helpers/promise-all');
 
-const NAME_LEN = 4;
+const NAME_LEN = 4; // name length for mock files in mess directory
 
-let settings = Args.parse({
-  dep: 3, // directories depth
-  fill: 10, // items quantity for each directory
+let settings = parseArgs({
+  dep: 3, // default directories depth
+  fill: 10, // default items quantity for each directory
   dir: '../mess' // default mess directory path
 }, ['dir'], ['dep', 'fill']);
 
@@ -34,7 +35,7 @@ fs.mkdir(settings.dir, { recursive: true }, function () {
 function fillDir (dirPath, itemsCount = 10, remainingDepth = 3, cb = () => {}) {
   remainingDepth -= 1;
   let dirChance = remainingDepth > 0 ? 0.8 : 1; // random chance to fill target directory by subdirectories
-  let callbacksComplete = Array(itemsCount).fill(false); // array of flags indicating that we need to wait some callbacks
+  const pAll = new PromiseAllCounter(cb).setCallbacksCount(itemsCount);
 
   for (let i = 0; i < itemsCount; i++) {
     if (Math.random() > dirChance) { // create dir
@@ -43,30 +44,15 @@ function fillDir (dirPath, itemsCount = 10, remainingDepth = 3, cb = () => {}) {
         if (error) return;
         // fill directories recursively
         fillDir(dirName, itemsCount, remainingDepth, function () {
-          callBackControl(i);
+          pAll.complete(i);
         });
       });
     } else { // create file
       let fileName = path.join(dirPath, NameGen.generateFileName(NAME_LEN, i));
       fs.appendFile(fileName, '// test file ' + i, 'utf8', function (error) {
         if (error) return;
-        callBackControl(i);
+        pAll.complete(i);
       });
     }
-  }
-
-  /**
-   * Callback for each asynchronous function in general stack.
-   * When last callback will be completed, stack will contain only 'true' values.
-   * It will be the signal for completing whole stack.
-   * @param index - Index of completed callback
-   */
-  function callBackControl (index) {
-    callbacksComplete[index] = true; // this cb is complete
-    // check other callbacks
-    for (let m = 0; m < callbacksComplete.length; m++) {
-      if (!callbacksComplete[m]) return; // there are still not completed callbacks
-    }
-    cb(); // all callbacks are completed, so can run main callback
   }
 }

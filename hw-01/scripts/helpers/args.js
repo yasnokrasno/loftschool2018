@@ -1,6 +1,8 @@
 const path = require('path');
 const fs = require('fs');
-
+/**
+ * Use native argv instead of https://www.npmjs.com/minimist for learning purposes.
+ */
 module.exports = {
   /**
    * This function is preparing arguments for main script:
@@ -8,9 +10,10 @@ module.exports = {
    * 2) prepare paths for further usage
    * @param settings Default settings
    * @param pathArgs Array of arguments names, that are containing paths
+   * @param intArgs Array of arguments names, that are containing integers
    * @returns {*}
    */
-  parse: function (settings, pathArgs = []) {
+  parse: function (settings, pathArgs = [], intArgs = []) {
     /**
      * Read CLI arguments and rewrite default settings.
      */
@@ -28,15 +31,13 @@ module.exports = {
       if (!isFlag && settings[argName]) {
         let nextItem = cliArgs[i + 1];
         if (nextItem && nextItem.substr(0, 1) !== '-') {
+          if (pathArgs.indexOf(argName) > -1) { // if this argument is marked as Path - prepare path
+            nextItem = path.resolve(nextItem);
+          }
+          if (intArgs.indexOf(argName) > -1) { // if this argument is marked as Integer - prepare path
+            nextItem = +nextItem;
+          }
           settings[argName] = nextItem;
-        }
-      }
-    }
-    // prepare paths
-    if (pathArgs.length > 0) {
-      for (let n = 0; n < pathArgs.length; n++) {
-        if (settings[pathArgs[n]]) {
-          settings[pathArgs[n]] = path.resolve(settings[pathArgs[n]]);
         }
       }
     }
@@ -60,6 +61,10 @@ module.exports = {
       console.error('Librarian ERROR: Source and target directory can\'t be the same.');
       process.exit(2);
     }
-    cb();
+
+    fs.stat(from, {}, (err, stats) => {
+      console.log(stats);
+      cb();
+    });
   }
 };

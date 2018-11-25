@@ -154,9 +154,9 @@ async function deleteSrc (infoObj) {
   // so directory must be empty before calling rmDir on it and we can't use parallel Promises with Promise.all()
   // infoObj.dirs is sorted from most upper directory at the beginning to deepest nested directory at the end of array,
   // so we can iterate through it in reverse order and delete all directories without errors.
-  for (let i = infoObj.dirs.length - 1; i >= 0; i--) {
+  for (let k = infoObj.dirs.length - 1; k >= 0; k--) {
     await new Promise(function (resolve) {
-      fs.rmdir(infoObj.dirs, (err) => resolve(err));
+      fs.rmdir(infoObj.dirs[k], (err) => resolve(err));
     });
   }
   console.log(`Librarian2: Source files are deleted.`);

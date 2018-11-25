@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const rimraf = require('rimraf');
 const parseArgs = require('minimist');
 
 const rawArgs = parseArgs(process.argv.slice(2));
@@ -39,7 +40,7 @@ async function librarian2 (srcDirPath, targetDirPath, delSrc = false) {
   }
 
   const info = await copyFilesFromMessToTargetDirectory(settings.from, settings.to);
-  if (settings.delsrc) await deleteSrc(info);
+  if (settings.delsrc) await deleteSrc(srcDirPath);
 
   return info;
 }
@@ -135,31 +136,21 @@ async function collectDirectoryPaths (srcDir, infoObj = { files: [], dirs: [], d
   return infoObj;
 }
 
-async function deleteSrc (infoObj) {
-  if (!infoObj.files && !infoObj.dirs) {
-    return Promise.resolve(infoObj);
+async function deleteSrc (srcDirPath) {
+  if (!srcDirPath) {
+    return Promise.resolve(false);
   }
-  let filePromises = Array(infoObj.files.length);
 
-  // files are not blocking each other, so we can use parallel Promises via Promise.all method
-  // to delete array of files by direct absolute paths
-  for (let i = infoObj.files.length - 1; i >= 0; i--) {
-    filePromises.push(new Promise(function (resolve) {
-      fs.unlink(infoObj.files[i], (err) => resolve(err));
-    }));
-  }
-  await Promise.all(filePromises);
-
-  // directory is blocked for deletion if it has children,
-  // so directory must be empty before calling rmDir on it and we can't use parallel Promises with Promise.all()
-  // infoObj.dirs is sorted from most upper directory at the beginning to deepest nested directory at the end of array,
-  // so we can iterate through it in reverse order and delete all directories without errors.
-  for (let k = infoObj.dirs.length - 1; k >= 0; k--) {
-    await new Promise(function (resolve) {
-      fs.rmdir(infoObj.dirs[k], (err) => resolve(err));
+  return new Promise(function (resolve) {
+    rimraf(srcDirPath, function (err) {
+      if (err) {
+        resolve(false);
+        return;
+      }
+      console.log(`Librarian2: Source files are deleted.`);
+      resolve(true);
     });
-  }
-  console.log(`Librarian2: Source files are deleted.`);
+  });
 }
 
 /**

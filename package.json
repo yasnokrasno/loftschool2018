@@ -6,8 +6,8 @@
   "scripts": {
     "hw-01-init": "node hw-01/scripts/generate-mess.js -dir hw-01/mess -dep 3 -fill 10",
     "hw-01": "node hw-01/scripts/librarian.js -from hw-01/mess -to hw-01/result",
-    "hw-02-init": "node hw-02/scripts/generate-mess2.js --dir=hw-02/mess --dep=3 --fill=10",
-    "hw-02": "node hw-02/scripts/librarian2.js --from=hw-02/mess --to=hw-02/result"
+    "hw-021-init": "node hw-021/scripts/generate-mess2.js --dir=hw-021/mess --dep=3 --fill=10",
+    "hw-021": "node hw-021/scripts/librarian2.js --from=hw-021/mess --to=hw-021/result"
   },
   "author": "Vladislav Golovin <gvladislavn@yandex.ru>",
   "devDependencies": {

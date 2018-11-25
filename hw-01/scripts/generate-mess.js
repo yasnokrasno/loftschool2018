@@ -20,7 +20,7 @@ if (fs.existsSync(settings.dir)) {
 
 fs.mkdir(settings.dir, { recursive: true }, function () {
   fillDir(settings.dir, settings.fill, settings.dep, function () {
-    console.log('Librarian: Mess generation is complete. See: ', settings.dir);
+    console.log('Librarian: Mess generation completed. See: ', settings.dir);
   });
 });
 

@@ -177,7 +177,7 @@ function validateDirectories (from, to, cb) {
 
   fs.access(to, fs.constants.F_OK, function (err) {
     if (!err) {
-      console.error('Librarian ERROR: There target path already exists: ', to, ' \n Please, set another target name.');
+      console.error('Librarian ERROR: Target path already exists: ', to, ' \n Please, set another target name.');
       process.exit(3);
     }
     pAll.complete(--cbCount);

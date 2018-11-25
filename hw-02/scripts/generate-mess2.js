@@ -15,13 +15,13 @@ const settings = Object.assign({
 settings.dir = path.resolve(settings.dir);
 
 if (fs.existsSync(settings.dir)) {
-  console.error('Librarian ERROR: path already exists: ', settings.dir);
+  console.error('Librarian2 ERROR: path already exists: ', settings.dir);
   process.exit(3);
 }
 
 fs.mkdir(settings.dir, { recursive: true }, function () {
   generateDirectory(settings.dir, settings.fill, settings.dep).then(function () {
-    console.log('Librarian: Mess generation is complete. See: ', settings.dir);
+    console.log('Librarian2: Mess generation completed. See: ', settings.dir);
   });
 });
 

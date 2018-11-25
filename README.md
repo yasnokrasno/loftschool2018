@@ -1,10 +1,11 @@
-# LoftSchool Homeworks
+# LoftSchool Homeworks :house: :computer:
 
 ## Summary
 
 1. [Librarian](#1-librarian) - copying files from source directory with random nesting to new sorted directory. 
 Includes only two dependencies: [fs](https://nodejs.org/api/fs.html) and [path](https://nodejs.org/api/path.html)
-2. [Librarian2](#2-librarian2) - refactored version of Librarian with Promises & Async functions
+2. Refactoing of `librarian.js` and simple Express server
+   * [Librarian2](#21-librarian2) - refactored version of Librarian with Promises & Async functions
 
 ## 1. Librarian
 
@@ -49,7 +50,9 @@ __librarian.js__
 * `-to` - (_string_) target directory path. Default is: `"../result"`
 * `--delsrc` - delete source directory. 
 
-## 2. Librarian2
+## 2. Librarian refactor & simple Express server
+
+### 2.1 Librarian2
 
 Librarian2 is equal to Librarian from first homework, but using Promises & Async functions.
 

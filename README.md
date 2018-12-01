@@ -1,14 +1,16 @@
-# LoftSchool Homeworks :house: :computer:
+# LoftSchool Home works :house: :computer:
 
 ## Summary
 
 1. [Librarian](#1-librarian) - copying files from source directory with random nesting to new sorted directory. 
 Includes only two dependencies: [fs](https://nodejs.org/api/fs.html) and [path](https://nodejs.org/api/path.html)
-2. [Homework №2](#2-librarian-refactor--simple-express-server) consist of 2 parts:
+2. [Homework №2](#2-librarian-refactoring--simple-express-server) consist of 2 parts:
    * [Librarian2](#21-librarian2) - refactored version of Librarian with Promises & Async functions
-   * Simple Express server
+   * [Simple server](#22-simple-server) - simple web server returning current time
+3. [Backend for simple site](#3-backend-for-simple-site)
+4. [Backend for complex site](#4-backend-for-complex-site)
 
-## 1. Librarian
+## 1. "Librarian"
 
 Simple files sorting based on native NodeJS [fs](https://nodejs.org/api/fs.html) callbacks.
 Trying to struggle with "callback hell" without of 
@@ -19,7 +21,7 @@ and [Async functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Re
 All files from given directory will be moved to new target directory 
 in subdirectories, corresponding to the first letter of the file name.
 
-#### Quickstart:
+#### Quick start:
 
 ```
 npm run hw-01-init
@@ -51,14 +53,14 @@ __librarian.js__
 * `-to` - (_string_) target directory path. Default is: `"../result"`
 * `--delsrc` - delete source directory. 
 
-## 2. Librarian refactor & simple Express server
+## 2. "Librarian" refactoring & simple server
 
-### 2.1 Librarian2
+### 2.1 "Librarian 2"
 
 Librarian2 is equal to Librarian from first homework, but using Promises & Async functions. 
 Also it uses read and write streams to copy files. 
 
-#### Quickstart:
+#### Quick start:
 
 ```
 npm run hw-021-init
@@ -77,3 +79,18 @@ NPM dependencies:
 
 * [Minimist](https://www.npmjs.com/package/minimist)
 * [rimraf](https://www.npmjs.com/package/rimraf)
+
+### 2.2 Simple server
+
+Outputting current UTC time on each request. 
+
+`npm run hw-022`
+
+Uses environment variables: 
+
+* `LOFT_HW_022_INTERVAL` - _(milliseconds)_ console.log interval (1000 by default)
+* `LOFT_HW_022_DURATION` - _(milliseconds)_ outputting duration (5500 by default)
+
+## 3. Backend for simple site
+
+## 4. Backend for complex site

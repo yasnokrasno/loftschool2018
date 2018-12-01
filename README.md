@@ -4,7 +4,7 @@
 
 1. [Librarian](#1-librarian) - copying files from source directory with random nesting to new sorted directory. 
 Includes only two dependencies: [fs](https://nodejs.org/api/fs.html) and [path](https://nodejs.org/api/path.html)
-2. Homework №2 consist of 2 parts:
+2. [Homework №2](#2-librarian-refactor--simple-express-server) consist of 2 parts:
    * [Librarian2](#21-librarian2) - refactored version of Librarian with Promises & Async functions
    * Simple Express server
 
@@ -55,7 +55,8 @@ __librarian.js__
 
 ### 2.1 Librarian2
 
-Librarian2 is equal to Librarian from first homework, but using Promises & Async functions.
+Librarian2 is equal to Librarian from first homework, but using Promises & Async functions. 
+Also it uses read and write streams to copy files. 
 
 #### Quickstart:
 
@@ -68,9 +69,9 @@ Arguments are parsed by [Minimist](https://www.npmjs.com/package/minimist),
 so format will be the next:
 
 - `node generate-mess2.js --dir=../mess --fill=10 --dep=5`
-- `node librarian2.js --from=../mess --to=../result`
+- `node librarian2.js --from=../mess --to=../result -d`
 
-`generate-mess2.js` uses Promises and `librarian2.js` uses Async functions. 
+`generate-mess2.js` uses Promises, `librarian2.js` uses Async functions and streams. 
 
 NPM dependencies:
 

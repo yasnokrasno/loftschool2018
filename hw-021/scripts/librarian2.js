@@ -7,12 +7,12 @@ const rawArgs = parseArgs(process.argv.slice(2));
 const settings = Object.assign({
   from: '../mess', // default mess directory path
   to: '../result', // default target result path
-  delsrc: false, // default flag to delete source directory
+  d: false, // default flag to delete source directory
 }, rawArgs);
 settings.from = path.resolve(settings.from);
 settings.to = path.resolve(settings.to);
 
-librarian2(settings.from, settings.to, settings.delsrc).then(function (info) {
+librarian2(settings.from, settings.to, settings.d).then(function (info) {
   console.log(`Librarian2: Done! ${info.files.length} files sorted in ${settings.to}.`);
 });
 
@@ -40,7 +40,7 @@ async function librarian2 (srcDirPath, targetDirPath, delSrc = false) {
   }
 
   const info = await copyFilesFromMessToTargetDirectory(settings.from, settings.to);
-  if (settings.delsrc) await deleteSrc(srcDirPath);
+  if (settings.d) await deleteSrc(srcDirPath);
 
   return info;
 }
@@ -71,9 +71,12 @@ function copyFiles (targetDir, files = []) {
     let base = path.basename(files[i]);
     let firstLet = base.substring(0, 1).toLowerCase();
     promisesArr.push(new Promise(function (resolve) {
-      fs.copyFile(files[i], path.join(targetDir, firstLet, base), function () {
+      const rs = fs.createReadStream(files[i]).on('end', () => {
+        console.log(`Librarian2: copied ${files[i]}`);
         resolve();
       });
+      const ws = fs.createWriteStream(path.join(targetDir, firstLet, base));
+      rs.pipe(ws);
     }));
   }
   return Promise.all(promisesArr);
@@ -109,10 +112,10 @@ async function collectDirectoryPaths (srcDir, infoObj = { files: [], dirs: [], d
     });
   });
 
-  let promisesArr = Array(files.length);
+  let statPromisesArr = Array(files.length);
 
   for (let i = 0; i < files.length; i++) {
-    promisesArr.push(new Promise(function (resolve) {
+    statPromisesArr.push(new Promise(function (resolve) {
       fs.stat(path.join(srcDir, files[i]), {}, function (err, stats) {
         if (err) {
           resolve();
@@ -132,7 +135,7 @@ async function collectDirectoryPaths (srcDir, infoObj = { files: [], dirs: [], d
     }));
   }
 
-  await Promise.all(promisesArr);
+  await Promise.all(statPromisesArr);
   return infoObj;
 }
 

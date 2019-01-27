@@ -24,7 +24,7 @@ module.exports.postAdminSkills = function (req, res, next) {
 };
 module.exports.postAdminProduct = function (req, res, next) {
   let form = new formidable.IncomingForm();
-  const uploadPath = path.join('./public', 'assets', 'img', 'products');
+  const uploadPath = path.join(process.cwd(), 'hw-03', 'public', 'assets', 'img', 'products');
   form.uploadDir = uploadPath;
 
   form.parse(req, function (err, fields, files) {

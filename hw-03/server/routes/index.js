@@ -10,5 +10,7 @@ router.post('/', ctrlHome.postIndex);
 router.get('/login', ctrlLogin.getLogin);
 router.post('/login', ctrlLogin.handleLogin);
 router.get('/admin', ctrlAdmin.isAdmin, ctrlAdmin.getAdmin);
+router.post('/admin/skills', ctrlAdmin.postAdminSkills);
+router.post('/admin/upload', ctrlAdmin.postAdminProduct);
 
 module.exports = router;

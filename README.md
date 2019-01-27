@@ -7,8 +7,9 @@ Includes only two dependencies: [fs](https://nodejs.org/api/fs.html) and [path](
 2. [Homework №2](#2-librarian-refactoring--simple-express-server) consist of 2 parts:
    * [Librarian2](#21-librarian2) - refactored version of Librarian with Promises & Async functions
    * [Simple server](#22-simple-server) - simple web server returning current time
-3. [Backend for simple site](#3-backend-for-simple-site)
-4. [Backend for complex site](#4-backend-for-complex-site)
+3. [Simple backend on Express.js](#3-simple-backend-on-express-js)
+4. [Simple backend on Koa.js](#4-simple-backend-on-koa-js)
+5. [Backend for complex site](#5-backend-for-complex-site)
 
 ## 1. "Librarian"
 
@@ -91,6 +92,36 @@ Uses environment variables:
 * `LOFT_HW_022_INTERVAL` - _(milliseconds)_ console.log interval (1000 by default)
 * `LOFT_HW_022_DURATION` - _(milliseconds)_ outputting duration (5500 by default)
 
-## 3. Backend for simple site
+## 3. Simple backend on Express.js
 
-## 4. Backend for complex site
+NPM dependencies:
+
+* [Fomidable](https://www.npmjs.com/package/formidable)
+* [Lowdb](https://www.npmjs.com/package/lowdb)
+
+For starting project:
+
+```
+cd hw-03
+npm install
+npm run build
+cd ..
+```
+
+Then type:
+
+```
+npm run hw-03
+```
+
+Open `localhost:3000`. You will see "skills" and "products" 
+blocks loaded from `hw-03/server/data.json`.
+
+You can login on `localhost:3000/admin` with `loft@loft.ru 12345` 
+to change skills numbers and add new products.
+
+Also there is message form on page bottom. Messages are simply printed to console.
+
+## 4. Simple backend on Koa.js
+
+## 5. Backend for complex site

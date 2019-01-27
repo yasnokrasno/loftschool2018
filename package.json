@@ -8,7 +8,8 @@
     "hw-01": "node hw-01/scripts/librarian.js -from hw-01/mess -to hw-01/result",
     "hw-021-init": "node hw-021/scripts/generate-mess2.js --dir=hw-021/mess --dep=3 --fill=10",
     "hw-021": "node hw-021/scripts/librarian2.js --from=hw-021/mess --to=hw-021/result",
-    "hw-022": "node hw-022/server"
+    "hw-022": "node hw-022/server",
+    "hw-03": "node hw-03/server/app.js"
   },
   "author": "Vladislav Golovin <gvladislavn@yandex.ru>",
   "devDependencies": {

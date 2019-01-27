@@ -3,24 +3,24 @@
     "login": "loft@loft.ru",
     "pass": "12345"
   },
-  "skills": [
-    {
-      "number": 12,
+  "skills": {
+    "age": {
+      "number": 13,
       "text": "Возраст начала занятий на скрипке"
     },
-    {
-      "number": 76,
+    "concerts": {
+      "number": 50,
       "text": "Концертов отыграл"
     },
-    {
-      "number": 30,
+    "cities": {
+      "number": 10,
       "text": "Максимальное число городов в туре"
     },
-    {
-      "number": 30,
+    "years": {
+      "number": 15,
       "text": "Лет на сцене в качестве скрипача"
     }
-  ],
+  },
   "products": [
     {
       "src": "./assets/img/products/Work1.jpg",

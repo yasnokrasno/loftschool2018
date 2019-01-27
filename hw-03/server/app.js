@@ -22,7 +22,7 @@ app.use(
       maxAge: null,
     },
     saveUninitialized: false,
-    resave: false,
+    resave: false
   })
 );
 

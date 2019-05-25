@@ -5,6 +5,7 @@ const router = new Router();
 const path = require('path');
 
 router.get('/', controllers.index);
+router.post('/', koaBody(), controllers.indexMessage);
 router.get('/login', controllers.login);
 router.get('/admin', controllers.admin);
 router.post('/admin/skills', koaBody(), controllers.adminSkills);

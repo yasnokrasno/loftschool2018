@@ -13,6 +13,16 @@ module.exports.index = async ctx => {
   });
 };
 
+module.exports.indexMessage = async ctx => {
+  const { name, email, message } = ctx.request.body;
+  if (!name || !email) {
+    ctx.redirect('/?message_not_sent');
+    return;
+  }
+  console.log('name: ', name, '\nemail: ', email, '\nmessage:\n', message);
+  ctx.redirect('/?message_sent');
+};
+
 module.exports.admin = async ctx => {
   renderAdmin(ctx);
 };

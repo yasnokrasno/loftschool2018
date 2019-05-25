@@ -1,0 +1,71 @@
+{
+  "admin": {
+    "login": "loft@loft.ru",
+    "pass": "12345"
+  },
+  "skills": {
+    "age": {
+      "number": 13,
+      "text": "Возраст начала занятий на скрипке"
+    },
+    "concerts": {
+      "number": 32,
+      "text": "Концертов отыграл"
+    },
+    "cities": {
+      "number": 10,
+      "text": "Максимальное число городов в туре"
+    },
+    "years": {
+      "number": 15,
+      "text": "Лет на сцене в качестве скрипача"
+    }
+  },
+  "products": [
+    {
+      "src": "./assets/img/products/Work1.jpg",
+      "name": "Круг на верёвочке",
+      "price": 300
+    },
+    {
+      "src": "./assets/img/products/Work2.jpg",
+      "name": "Вино вдохновение",
+      "price": 600
+    },
+    {
+      "src": "./assets/img/products/Work3.jpg",
+      "name": "Солнцезащитные очки",
+      "price": 100
+    },
+    {
+      "src": "./assets/img/products/Work4.jpg",
+      "name": "Шарф",
+      "price": 350
+    },
+    {
+      "src": "./assets/img/products/Work5.jpg",
+      "name": "Модный Look",
+      "price": 800
+    },
+    {
+      "src": "./assets/img/products/Work6.jpg",
+      "name": "Железная кружка",
+      "price": 500
+    },
+    {
+      "src": "./assets/img/products/Work7.jpg",
+      "name": "Печатная машинка",
+      "price": 1400
+    },
+    {
+      "src": "./assets/img/products/Work8.jpg",
+      "name": "Люстра",
+      "price": 1600
+    },
+    {
+      "src": "./assets/img/products/Work9.jpg",
+      "name": "Мешок",
+      "price": 20
+    }
+  ]
+}

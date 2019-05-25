@@ -4,8 +4,8 @@
     "no-extra-semi": "error",
     "semi": [2, "always"],
     "comma-dangle": ["error", {
-      "arrays": "always-multiline",
-      "objects": "always-multiline",
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "ignore"

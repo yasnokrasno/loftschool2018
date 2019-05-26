@@ -124,4 +124,17 @@ Also there is message form on page bottom. Messages are simply printed to consol
 
 ## 4. Simple backend on Koa.js
 
+Koa.js backend for simple site.
+
+For starting project:
+
+```
+cd hw-04
+npm install
+npm run build
+cd ..
+npm run hw-04
+```
+Usage is equivalent to Express example above.
+
 ## 5. Backend for complex site

@@ -2,7 +2,7 @@ const db = require('../models/db');
 const fs = require('fs');
 const util = require('util');
 const _path = require('path');
-
+const pass = require('../libs/password');
 const rename = util.promisify(fs.rename);
 const unlink = util.promisify(fs.unlink);
 
@@ -24,11 +24,30 @@ module.exports.indexMessage = async ctx => {
 };
 
 module.exports.admin = async ctx => {
-  renderAdmin(ctx);
+  if (ctx.session.isAdmin) {
+    renderAdmin(ctx);
+  } else {
+    ctx.redirect('/login');
+  }
 };
 
 module.exports.login = async ctx => {
-  ctx.render('pages/login');
+  if (ctx.session.isAdmin) {
+    renderAdmin(ctx);
+  } else {
+    ctx.render('pages/login');
+  }
+};
+
+module.exports.loginPost = async ctx => {
+  const { email, password } = ctx.request.body;
+  const admin = db.get('admin').value();
+  if (admin.login === email && pass.checkPassword(password, db.get('passwordSalt').value(), admin.pass)) {
+    ctx.session.isAdmin = true;
+    ctx.redirect('/admin');
+  } else {
+    ctx.redirect('/login?wrong_pass');
+  }
 };
 
 module.exports.uploadProduct = async ctx => {
@@ -76,7 +95,6 @@ function renderAdmin (ctx, extraVars = {}) {
   ctx.render('pages/admin', vars);
 }
 
-// ---------------helpers------------------
-const fileValidation = (files) => {
+function fileValidation (files) {
   return !(files.photo.name === '' || files.photo.size === 0);
-};
+}

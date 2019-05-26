@@ -1,3 +1,12 @@
 {
-  "upload": "./hw-04/public/assets/img/products"
+  "upload": "./hw-04/public/assets/img/products",
+  "session": {
+    "key": "koa:sess",
+    "maxAge": 86400000,
+    "overwrite": true,
+    "httpOnly": true,
+    "rolling": false,
+    "renew": false
+  },
+  "cookieKeys": ["asdkjfhasdfasdc", "sahdjkfhklaisdu"]
 }

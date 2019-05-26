@@ -4,6 +4,8 @@ const Pug = require('koa-pug');
 const router = require('./routes');
 const errorHandler = require('./libs/error');
 const path = require('path');
+const session = require('koa-session');
+const config = require('./config/config');
 
 const app = new Koa();
 const pug = new Pug({
@@ -14,6 +16,7 @@ const pug = new Pug({
   app: app
 });
 
+app.keys = config.cookieKeys;
 app.use(stat(path.join(__dirname, 'public')));
 app.use(errorHandler);
 app.on('error', (err, ctx) => {
@@ -22,7 +25,8 @@ app.on('error', (err, ctx) => {
     message: ctx.response.message
   });
 });
-app.use(router.routes()).use(router.allowedMethods());
+app.use(session(config.session, app))
+  .use(router.routes()).use(router.allowedMethods());
 
 app.listen(3000);
 console.log('Listening localhost:3000...');

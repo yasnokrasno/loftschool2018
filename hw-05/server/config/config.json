@@ -1,3 +1,17 @@
 {
-  "viewFileName": "index.html"
+  "templateFileName": "index.html",
+  "db": {
+    "host": "localhost",
+    "dialect": "postgres",
+    "database": "loft",
+    "username": "loft",
+    "pass": "loft",
+    "pool": {
+      "min": 0,
+      "max": 5,
+      "acquire": 30000,
+      "idle": 10000
+    },
+    "modelNames": ["User", "Permission", "News"]
+  }
 }

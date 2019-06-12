@@ -1,7 +1,7 @@
 const config = require('../config/config');
 const path = require('path');
-const viewFileName = path.join(process.cwd(), 'public', config.viewFileName);
+const templateFilePath = path.join(process.cwd(), 'public', config.templateFileName);
 
 module.exports.getIndex = function (req, res, next) {
-  res.send(viewFileName);
+  res.send(templateFilePath);
 };

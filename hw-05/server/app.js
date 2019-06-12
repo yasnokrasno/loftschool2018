@@ -5,13 +5,12 @@ const session = require('express-session');
 const routes = require('./routes/index');
 
 const app = express();
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.text());
 
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(
   session({
-    secret: 'loftschoolHW3',
+    secret: 'loftschoolHW5',
     key: 'lfsesskey',
     cookie: {
       path: '/',

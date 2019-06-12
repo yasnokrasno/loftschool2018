@@ -26,7 +26,17 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   });
+
+  User.associate = (models) => {
+    User.hasMany(models.news);
+    User.hasOne(models.permission);
+  };
+
   return User;
 };

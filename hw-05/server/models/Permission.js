@@ -1,5 +1,5 @@
-const User = require('User');
 const permissionDefaultJsonValue = '{"C":false,"R":false,"U":false,"D":false}';
+
 module.exports = (sequelize, DataTypes) => {
   const Permission = sequelize.define('permission', {
     id: {
@@ -7,14 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       primaryKey: true,
       autoIncrement: true
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      unique: false,
-      reference: {
-        model: User,
-        key: 'id'
-      }
     },
     news: {
       type: DataTypes.JSON,
@@ -26,14 +18,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSON,
       allowNull: false,
       defaultValue: permissionDefaultJsonValue,
-      comment: 'Permissions for news section'
+      comment: 'Permissions for chat section'
     },
     settings: {
       type: DataTypes.JSON,
       allowNull: false,
       defaultValue: permissionDefaultJsonValue,
-      comment: 'Permissions for news section'
+      comment: 'Permissions for settings section'
     }
   });
+
+  Permission.associate = (models) => {
+    Permission.belongsTo(models.user, { foreignKey: 'uid' });
+  };
+
   return Permission;
 };

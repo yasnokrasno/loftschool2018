@@ -13,6 +13,9 @@ let mockUser = {
   surName: 'test3',
   username: 'testuser'
 };
+const sequelise = require('../services/Sequelize');
+const User = require('../models/User');
+
 module.exports.addUser = function () {
   return mockUser;
 };

@@ -4,7 +4,7 @@
     "host": "localhost",
     "dialect": "postgres",
     "database": "loft",
-    "username": "loft",
+    "username": "loftuser",
     "pass": "loft",
     "pool": {
       "min": 0,

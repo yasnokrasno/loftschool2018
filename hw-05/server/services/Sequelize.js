@@ -1,10 +1,17 @@
 const Sequelize = require('sequelize');
 const config = require('../config/config');
-const sequelize = Sequelize(config.db.database, config.db.username, config.db.pass, {
-  host: config.db.host,
-  dialect: config.db.dialect,
-  pool: config.db.pool
-});
+const fs = require('fs');
+const path = require('path');
+
+const sequelize = new Sequelize(
+  config.db.database,
+  config.db.username,
+  config.db.pass,
+  {
+    host: config.db.host,
+    dialect: config.db.dialect,
+    pool: config.db.pool
+  });
 
 sequelize.authenticate()
   .then(() => {
@@ -14,8 +21,19 @@ sequelize.authenticate()
     console.log('Error connecting Sequelize to database');
   });
 
-for (const modelName in config.db.modelNames) {
-  sequelize.import(`/models/${modelName}.js`);
-}
+fs.readdirSync(path.join(__dirname, '..', 'models'))
+  .forEach((fileName) => {
+    if (config.db.modelNames.indexOf(path.basename(fileName, '.js') >= 0)) {
+      sequelize.import(path.join(__dirname, '..', 'models', fileName));
+    }
+  });
+
+Object.keys(sequelize.models).forEach((modelName) => {
+  if ('associate' in sequelize.models[modelName]) {
+    sequelize.models[modelName].associate(sequelize.models);
+  }
+});
 
 sequelize.sync();
+
+module.exports = sequelize;

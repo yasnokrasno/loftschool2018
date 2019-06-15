@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     middleName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     surName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
-    userName: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
@@ -27,15 +27,20 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    avatar: {
+    img: {
       type: DataTypes.STRING,
       allowNull: true
     }
+  },
+  {
+    createdAt: false,
+    updatedAt: false
   });
 
+  // late models binding. Starts in services/Sequelize.js after importing
   User.associate = (models) => {
-    User.hasMany(models.news);
-    User.hasOne(models.permission);
+    User.hasMany(models.news, { foreignKey: 'uid' });
+    User.hasOne(models.permission, { foreignKey: 'uid' });
   };
 
   return User;

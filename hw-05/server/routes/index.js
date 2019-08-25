@@ -6,5 +6,6 @@ const ctrlUser = require('../controllers/user');
 
 router.get('/', ctrlIndexPage.getIndex);
 router.post('/api/saveNewUser', ctrlUser.createUser);
+router.post('/api/login', ctrlUser.login);
 
 module.exports = router;

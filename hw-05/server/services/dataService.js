@@ -29,6 +29,18 @@ module.exports.addUser = async function (req, res, next) {
   return newUserPlainObject;
 };
 
+module.exports.findUserById = async function (userId) {
+  return sequelize.models.user.findOne({
+    where: { id: userId }
+  });
+};
+
+module.exports.findUserByLogin = async function (userName) {
+  return sequelize.models.user.findOne({
+    where: { username: userName }
+  });
+};
+
 async function saveUserWithPermissionsToDB (rawUserFields, sequelizeInstance) {
   return await sequelizeInstance.transaction(async transaction => {
     return await sequelizeInstance.models.user
@@ -40,7 +52,7 @@ async function saveUserWithPermissionsToDB (rawUserFields, sequelizeInstance) {
         }
       );
   }).then(newUser => {
-    return preparePlainUserObject(newUser); // todo preparePlainUserObject() function
+    return preparePlainUserObject(newUser);
   }).catch(errorResult => {
     return errorResult;
   });

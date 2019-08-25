@@ -1,3 +1,5 @@
+const bCpypt = require('bcryptjs');
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     id: {
@@ -42,6 +44,16 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.news, { foreignKey: 'uid' });
     User.hasOne(models.permission, { foreignKey: 'uid' });
   };
-
+  /**
+   * Create a password hash.
+   * @param rawPasswordString {String} Raw inputed password to create a hash
+   * @returns {String} Hashed password string
+   */
+  User.createPasswordHash = (rawPasswordString) => {
+    return bCpypt.hashSync(rawPasswordString, bCpypt.genSaltSync(10), null);
+  };
+  User.validatePasswordHash = (inputedPasswordString, storedPasswordHash) => {
+    return bCpypt.compareSync(inputedPasswordString, storedPasswordHash);
+  };
   return User;
 };

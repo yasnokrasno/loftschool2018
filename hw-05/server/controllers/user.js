@@ -5,3 +5,8 @@ module.exports.createUser = function (req, res, next) {
   const newUser = dataService.addUser(requestJSON);
   res.send(newUser);
 };
+
+module.exports.login = function (req, res, next) {
+  const requestJSON = JSON.parse(req.body);
+
+};

@@ -1,16 +1,22 @@
 const path = require('path');
 const express = require('express');
-const bodyParser = require('body-parser');
+
 const session = require('express-session');
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const FileStore = require('session-file-store')(session);
+
 const routes = require('./routes/index');
 
-const app = express();
-app.use(bodyParser.text());
+// todo: make authorization
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   session({
-    secret: 'loftschoolHW5',
+    secret: 'loftschoolHW5', // todo: move to ENV config
+    store: new FileStore(),
     key: 'lfsesskey',
     cookie: {
       path: '/',
@@ -21,7 +27,11 @@ app.use(
     resave: false
   })
 );
+require('./config/config.passport');
 
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/', routes);
 app.use(function (err, req, res, next) {
   if (!err) {
